@@ -41,7 +41,71 @@ body {
     }
 }
 
-#content {    
-    max-width: 500px;
-    padding-inline: 50px;
+main {    
+    max-width: 75%;
+    min-width: 500px;    
+    margin-inline: auto;
+}
+
+#tierlist {    
+    border: 1px solid #080808;
+    display: flex;
+    flex-direction: column;
+    background-color: #2e2e2e;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #0c0c0c;
+}
+
+.title {
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.label {
+    background: var(--level, #2100b6);
+    cursor: pointer;
+    color: #0c0c0c;
+    font-weight: bold;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    border-right: 1px solid #0c0c0c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & span:focus {
+        outline: none;
+    }
+}
+
+#options {    
+    display: flex;
+    gap: 25px;
+    margin-top: 15px;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: center;
+
+    & button, & label {        
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 24px;
+        height: 24px;
+        &:hover {
+            color: var(--s-color);
+            scale: 1.1;
+        }
+    }
+
+    & svg {
+        width: 100%;
+        height: 100%;
+    }
+    
 }
