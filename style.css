@@ -109,3 +109,12 @@ main {
     }
     
 }
+
+#items {
+    border: 1px solid #666666;
+    width: 100%;
+    height: 300px;
+    margin-top: 25px;
+    margin-bottom: 70px;
+    display: flex;
+}
