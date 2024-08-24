@@ -6,7 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tier Maker</title>
     <link rel="stylesheet" href="style.css">
+
     <script type="module">
+        const $ = el => document.querySelector(el);
+        const $$ = els => document.querySelectorAll(els);
+
+        const imageInput = $('#image-input');
+        const itemsSection = $('#items');
+
+        imageInput.addEventListener('change', async event => {
+            const [file] = event.target.files;
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = (eventReader) => {
+                    const img = new Image();
+                    img.src = eventReader.target.result;
+                    img.className = 'item';
+                    itemsSection.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+
+
+            }
+        });
 
     </script>
 </head>
@@ -71,7 +96,7 @@
             </label>
         </section>
         <section id="items">
-            
+
         </section>
     </main>
 </body>
