@@ -4,6 +4,21 @@ const $$ = els => document.querySelectorAll(els);
 const imageInput = $('#image-input');
 const itemsSection = $('#items');
 
+
+function createItem(src) {
+    const img = new Image();
+    img.draggable = true;
+    img.src = src;
+    img.className = 'item-image';
+
+    img.addEventListener('dragstart', handleDragStart);
+    img.addEventListener('dragend', handleDragEnd);
+
+    itemsSection.appendChild(img);
+
+    return img;
+}
+
 imageInput.addEventListener('change', async event => {
     const [file] = event.target.files;
 
@@ -11,15 +26,7 @@ imageInput.addEventListener('change', async event => {
         const reader = new FileReader();
 
         reader.onload = (eventReader) => {
-            const img = new Image();
-            img.draggable = true;
-            img.src = eventReader.target.result;
-            img.className = 'item-image';
-
-          /*   img.addEventListener('dragstart', handleDragStart);
-            img.addEventListener('dragend', handleDragEnd); */
-
-            itemsSection.appendChild(img);
+            createItem(eventReader.target.result);
         }
 
         reader.readAsDataURL(file);
@@ -29,16 +36,58 @@ imageInput.addEventListener('change', async event => {
 let draggedItem = null;
 let srcContainer = null;
 
-function handleDragStart(event) {
-    console.log('drag start', event.target);
+const rows = $$('.row');
+
+rows.forEach(row => {
+    row.addEventListener('dragover', handleDragOver);
+    row.addEventListener('drop', handleDrop);
+    row.addEventListener('dragleave', handleDragLeave);
+});
+
+function handleDrop(event) {    
+    event.preventDefault();   
+
+    const { currentTarget, dataTransfer } = event;
+
+    if (srcContainer && draggedItem) {
+        srcContainer.removeChild(draggedItem);    
+    }
+
+    if (draggedItem) {
+        const src = dataTransfer.getData('text/plain');
+        const img = createItem(src);
+        currentTarget.appendChild(img);
+    }
     
+    currentTarget.classList.remove('dragover');
+}
+
+function handleDragOver(event) {    
+    event.preventDefault();
+    
+    const { currentTarget } = event;
+
+    if (srcContainer === currentTarget) {
+        return;
+    }
+
+    currentTarget.classList.add('dragover');
+}
+
+function handleDragLeave(event) {
+    event.preventDefault();
+
+    const { currentTarget } = event;
+    
+}
+
+function handleDragStart(event) {
     draggedItem = event.target;
-    srcContainer = draggedItem.partentNode;
+    srcContainer = draggedItem.parentNode;
+    event.dataTransfer.setData('text/plain', draggedItem.src);
 }
 
 function handleDragEnd(event) {
-    console.log('drag end', event.target);
-    
     draggedItem = null;
     srcContainer = null;
 }

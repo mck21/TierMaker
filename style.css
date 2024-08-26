@@ -41,13 +41,13 @@ body {
     }
 }
 
-main {    
+main {
     max-width: 75%;
-    min-width: 500px;    
+    min-width: 500px;
     margin-inline: auto;
 }
 
-#tierlist {    
+#tierlist {
     border: 1px solid #080808;
     display: flex;
     flex-direction: column;
@@ -58,6 +58,13 @@ main {
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid #0c0c0c;
+    transition: all 0.3s ease;
+
+    /* fix */
+    & .dragover {
+        scale: 1.1;
+        background-color: #6d6c6c;
+    }
 }
 
 .title {
@@ -84,7 +91,7 @@ main {
     }
 }
 
-#options {    
+#options {
     display: flex;
     gap: 25px;
     margin-top: 15px;
@@ -92,11 +99,13 @@ main {
     padding: 10px;
     justify-content: center;
 
-    & button, & label {        
+    & button,
+    & label {
         cursor: pointer;
         transition: all 0.3s ease;
         width: 24px;
         height: 24px;
+
         &:hover {
             color: var(--s-color);
             scale: 1.1;
@@ -107,7 +116,7 @@ main {
         width: 100%;
         height: 100%;
     }
-    
+
 }
 
 #items {
@@ -142,7 +151,7 @@ main {
     padding: 5px;
     position: absolute;
     z-index: 1;
-    top: 125%; 
+    top: 125%;
     left: 50%;
     margin-left: -60px;
     opacity: 0;
@@ -152,7 +161,7 @@ main {
 .btn .tooltip-text::after {
     content: "";
     position: absolute;
-    bottom: 100%; 
+    bottom: 100%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
@@ -164,4 +173,3 @@ main {
     visibility: visible;
     opacity: 1;
 }
-
