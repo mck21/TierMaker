@@ -133,6 +133,11 @@ main {
     height: 80px;
     object-fit: cover;
     cursor: grab;
+
+    &.drag-preview {
+        opacity: 0.4;
+        pointer-events: none;
+    }
 }
 
 .btn {
@@ -159,7 +164,7 @@ main {
 }
 
 .btn .tooltip-text::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 100%;
     left: 50%;
