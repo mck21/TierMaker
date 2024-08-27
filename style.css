@@ -126,6 +126,12 @@ main {
     margin-top: 25px;
     margin-bottom: 70px;
     display: flex;
+    flex-wrap: wrap;
+
+    &.drag-files {
+        background-color: #6d6c6c;
+        border: 2px dashed #ffff7f;
+    }
 }
 
 .item-image {

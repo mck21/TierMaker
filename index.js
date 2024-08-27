@@ -56,6 +56,10 @@ itemsSection.addEventListener('dragover', handleDragOver);
 itemsSection.addEventListener('drop', handleDrop);
 itemsSection.addEventListener('dragleave', handleDragLeave);
 
+itemsSection.addEventListener('drop', handleDropFromDesktop);
+itemsSection.addEventListener('dragover', handleDragOverFromDesktop);
+
+
 function handleDrop(event) {
     event.preventDefault();
 
@@ -114,6 +118,28 @@ function handleDragStart(event) {
 function handleDragEnd(event) {
     draggedItem = null;
     srcContainer = null;
+}
+
+function handleDragOverFromDesktop(event) {
+    event.preventDefault();
+
+    const { currentTarget, dataTransfer } = event;
+
+    if (dataTransfer.types.includes('Files')) {
+        currentTarget.classList.add('drag-files');
+    }
+}
+
+function handleDropFromDesktop(event) {
+    event.preventDefault();
+
+    const { currentTarget, dataTransfer } = event;
+
+    if (dataTransfer.types.includes('Files')) {
+        currentTarget.classList.remove('drag-files');
+        const { files } = dataTransfer;
+        dragFilesToItemsSection(files);
+    }
 }
 
 resetButton.addEventListener('click', () => {
