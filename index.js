@@ -38,11 +38,16 @@ let srcContainer = null;
 
 const rows = $$('.row');
 
-rows.forEach(row => {
+
+rows.forEach(row => {    
     row.addEventListener('dragover', handleDragOver);
     row.addEventListener('drop', handleDrop);
     row.addEventListener('dragleave', handleDragLeave);
 });
+
+itemsSection.addEventListener('dragover', handleDragOver);
+itemsSection.addEventListener('drop', handleDrop);
+itemsSection.addEventListener('dragleave', handleDragLeave);
 
 function handleDrop(event) {    
     event.preventDefault();   
@@ -59,7 +64,7 @@ function handleDrop(event) {
         currentTarget.appendChild(img);
     }
     
-    currentTarget.classList.remove('dragover');
+    currentTarget.classList.remove('drag-over');
 }
 
 function handleDragOver(event) {    
@@ -71,14 +76,16 @@ function handleDragOver(event) {
         return;
     }
 
-    currentTarget.classList.add('dragover');
+    currentTarget.classList.add('drag-over');
 }
 
 function handleDragLeave(event) {
     event.preventDefault();
 
     const { currentTarget } = event;
+
     
+    currentTarget.classList.remove('drag-over');    
 }
 
 function handleDragStart(event) {
