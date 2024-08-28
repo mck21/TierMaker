@@ -4,6 +4,7 @@ const $$ = els => document.querySelectorAll(els);
 const imageInput = $('#image-input');
 const itemsSection = $('#items');
 const resetButton = $('#reset-tierlist-btn');
+const screenshotButton = $('#screenshot-tierlist-btn');
 
 
 function createItem(src) {
@@ -148,4 +149,23 @@ resetButton.addEventListener('click', () => {
         item.remove()
         itemsSection.appendChild(item)
     });
+});
+
+screenshotButton.addEventListener('click', () => {
+    const tierlist = $('#tierlist');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    import('https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/+esm')
+        .then(({ default: html2canvas }) => {
+            html2canvas(tierlist).then(canvas => {
+                ctx.drawImage(canvas, 0, 0);
+                const imgURL = canvas.toDataURL('image/png');
+
+                const downloadLink = document.createElement('a');
+                downloadLink.download = 'tierlist.png';
+                downloadLink.href = imgURL;
+                downloadLink.click();
+            });
+        });
 });
